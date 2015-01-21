@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+</head>
+
+<body>
+
+<div ng-app="" ng-controller="movieController">
+<form novalidate>
+  <p>Movie Name: <input type="text" ng-model="name"></p>
+  <p ng-bind="name"></p>
+<button ng-click="submit()"> Submit </button>
+<div ng-show="dataid"> <p> {{ data}}<p> </div>
+</form>
+</div>
+<script>
+function movieController ($scope, $http){
+$scope.name="PK";
+
+$scope.submit= function(){
+$scope.dataid =false;
+httpURL = 'http://www.omdbapi.com/?t=' + $scope.name  + '&y=&plot=short&r=json' ;
+
+$http.get(httpURL).success(function(response){$scope.data = response; $scope.dataid =true;});
+};
+$scope.submit();
+}
+</script>
+</body>
+</html> 
+
